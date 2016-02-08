@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_main"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="Home"/>
+    <item
+        android:id="@+id/action_create"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="Create Access"/>
+    <item
+        android:id="@+id/action_show_today"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Show Today Access"/>
+    <item
+        android:id="@+id/action_show_total"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Show Total Access"/>
+    <item
+        android:id="@+id/action_report"
+        android:icon="@android:drawable/ic_menu_set_as"
+        android:title="Report"/>
+</menu>
