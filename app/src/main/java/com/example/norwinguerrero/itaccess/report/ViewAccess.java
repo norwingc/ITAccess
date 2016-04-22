@@ -27,6 +27,7 @@ public class ViewAccess extends BaseActivity {
 
         // fetch value from key-value pair and make it visible on TextView.
         String item = intent.getStringExtra("selected-item");
+
         textView.setText("you selected "+item);
     }
 

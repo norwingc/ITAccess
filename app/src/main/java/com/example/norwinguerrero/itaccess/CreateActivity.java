@@ -2,12 +2,16 @@ package com.example.norwinguerrero.itaccess;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -16,6 +20,7 @@ import com.example.norwinguerrero.itaccess.helper.DialogoAlerta;
 import com.example.norwinguerrero.itaccess.pojo.Access;
 import com.example.norwinguerrero.itaccess.report.TodayAccess;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -25,11 +30,14 @@ import java.util.Date;
 public class CreateActivity extends BaseActivity {
 
     Spinner txtescort;
-    Button btnsave;
+    Button btnsave, btnphoto;
     EditText txtdate, txtfullname, txtcompany, txtpourpose, txtsignature, txttimein, txttimeout;
     DatabaseHandler dbHandler = new DatabaseHandler(this);
     String Toast_msg;
     final Context context = this;
+
+    ImageView iv;
+    Bitmap bp = null;
 
     private static final String[] paths = {"Bismark Antonio Carmona Gaitán", "Cristobal Santiago Huerta Espinal",
             "Elliot Cesar Velazquez Gutiérrez", "Erick Alberto Alemán Castillo", "Julio Alejandro Bendaña Garcia",
@@ -59,6 +67,9 @@ public class CreateActivity extends BaseActivity {
         txttimein = (EditText) findViewById(R.id.txttimein);
         txttimeout = (EditText) findViewById(R.id.txttimeout);
         txtsignature = (EditText) findViewById(R.id.txtsignature);
+        btnphoto  = (Button) findViewById(R.id.btnphoto);
+
+        iv=(ImageView)findViewById(R.id.imageView);
 
 
         Date now = new Date();
@@ -67,13 +78,29 @@ public class CreateActivity extends BaseActivity {
 
         txtfullname.requestFocus();
 
+
+        btnphoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 0);
+            }
+        });
+
         btnsave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (validate() == true) {
 
-                   Access access = new Access();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    byte[] b = baos.toByteArray();
+                    String encodedImageString = Base64.encodeToString(b, Base64.DEFAULT);
+                    byte[] bytarray = Base64.decode(encodedImageString, Base64.DEFAULT);
+
+
+                    Access access = new Access();
 
                     access.set_date(txtdate.getText().toString());
                     access.set_fullname(txtfullname.getText().toString());
@@ -83,6 +110,9 @@ public class CreateActivity extends BaseActivity {
                     access.set_timein(txttimein.getText().toString());
                     access.set_timeout(txttimeout.getText().toString());
                     access.set_escort(txtescort.getSelectedItem().toString());
+
+
+                    access.set_photo(bytarray);
 
                     dbHandler.addContact(access);
                     Clear();
@@ -99,6 +129,14 @@ public class CreateActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+
+        bp = (Bitmap) data.getExtras().get("data");
+        iv.setImageBitmap(bp);
     }
 
     private boolean validate(){

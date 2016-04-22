@@ -49,7 +49,8 @@ public class TodayAccess extends BaseActivity {
             String company = access.get_company();
             String sigmature = access.get_signature();
             String escort = access.get_escort();
-            String Name_num = "Name: " + fullname + " / Company: " + company + " / Signature: " + sigmature + " / Escort: " +escort;
+            byte [] photo = access.get_photo();
+            String Name_num = "Name: " + fullname + " / Company: " + company + " / Signature: " + sigmature + " / Escort: " +escort + " / photo: " + photo;
             listItems.add(Name_num);
         }
 

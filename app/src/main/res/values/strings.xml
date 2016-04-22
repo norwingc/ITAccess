@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ITAccess</string>
+    <string name="app_name">Data Center Access</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_base">BaseActivity</string>
     <string name="nav_drawer_opened">drawer opened</string>

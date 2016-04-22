@@ -1,5 +1,7 @@
 package com.example.norwinguerrero.itaccess.pojo;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Norwin Guerrero on 2/2/2016.
  */
@@ -14,11 +16,12 @@ public class Access {
     private String _timein;
     private String _timeout;
     private String _escort;
+    private byte[] _photo;
 
     public Access() {
     }
 
-    public Access(int _id, String _date, String _fullname, String _company, String _purposeofvisit, String _timein, String _signature, String _escort, String _timeout) {
+    public Access(int _id, String _date, String _fullname, String _company, String _purposeofvisit, String _timein, String _signature, String _escort, String _timeout, byte[] _photo) {
         this._id = _id;
         this._date = _date;
         this._fullname = _fullname;
@@ -77,9 +80,7 @@ public class Access {
         return _purposeofvisit;
     }
 
-    public void set_purposeofvisit(String _purposeofvisit) {
-        this._purposeofvisit = _purposeofvisit;
-    }
+    public void set_purposeofvisit(String _purposeofvisit) { this._purposeofvisit = _purposeofvisit; }
 
     public String get_signature() {
         return _signature;
@@ -111,5 +112,13 @@ public class Access {
 
     public void set_escort(String _escort) {
         this._escort = _escort;
+    }
+
+    public byte[] get_photo() {
+        return _photo;
+    }
+
+    public void set_photo(byte[] _photo) {
+        this._photo = _photo;
     }
 }

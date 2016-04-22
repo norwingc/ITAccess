@@ -33,6 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_TIMEIN = "timein";
     private static final String KEY_TIMEOUT = "timeout";
     private static final String KEY_ESCORT = "escort";
+    private static final String KEY_PHOTO = "photo";
 
     private final ArrayList<Access> access_list = new ArrayList<Access>();
 
@@ -45,7 +46,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_ACCESS_TABLE = "CREATE TABLE " + TABLE_ACCESS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_DATE +" TEXT," + KEY_NAME + " TEXT,"
                + KEY_COMPANY + " TEXT," + KEY_PURPOSE + " TEXT,"
-                + KEY_SIGNATURE + " TEXT," + KEY_TIMEIN + " TEXT," + KEY_TIMEOUT + " TEXT," + KEY_ESCORT + " TEXT" + ")";
+                + KEY_SIGNATURE + " TEXT," + KEY_TIMEIN + " TEXT," + KEY_TIMEOUT + " TEXT," + KEY_ESCORT + " TEXT," + KEY_PHOTO + " TEXT" + ")";
         db.execSQL(CREATE_ACCESS_TABLE);
     }
 
@@ -71,6 +72,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_TIMEIN, access.get_timein());
         values.put(KEY_TIMEOUT, access.get_timeout());
         values.put(KEY_ESCORT, access.get_escort());
+        values.put(KEY_PHOTO, access.get_photo());
 
         // Inserting Row
         db.insert(TABLE_ACCESS, null, values);
@@ -97,6 +99,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         access.set_timein(cursor.getString(6));
         access.set_timeout(cursor.getString(7));
         access.set_escort(cursor.getString(8));
+        access.set_photo(cursor.getBlob(9));
 
         // return contact
         cursor.close();
@@ -129,6 +132,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     access.set_timein(String.valueOf(cursor.getString(6)));
                     access.set_timeout(String.valueOf(cursor.getString(7)));
                     access.set_escort(String.valueOf(cursor.getString(8)));
+                   // access.set_escort(String.valueOf(cursor.getBlob(9)));
                     access_list.add(access);
                 } while (cursor.moveToNext());
             }
@@ -168,6 +172,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     access.set_timein(String.valueOf(cursor.getString(6)));
                     access.set_timeout(String.valueOf(cursor.getString(7)));
                     access.set_escort(String.valueOf(cursor.getString(8)));
+                    //access.set_photo(Byte.valueOf(cursor.getString(8)));
                     access_list.add(access);
                 } while (cursor.moveToNext());
             }
